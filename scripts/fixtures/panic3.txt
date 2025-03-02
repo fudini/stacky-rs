@@ -1,0 +1,10 @@
+thread 'main' panicked at src/bin/panic.rs:8:3:
+I just couldn't anymore..
+stack backtrace:
+   0:     0x5645cf5798c5 - trace0::0
+  at file.rs:105:5
+   1:     0x5645cf5798c5 - trace1::1
+   2:     0x5645cf5798c5 - trace2::2
+  at rust.rs:123:4
+   3:     0x5645cf55e925 - _start
+   4:                0x0 - <unknown>

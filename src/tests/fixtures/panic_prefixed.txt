@@ -1,0 +1,18 @@
+prefix    0:     0x55a98f23062c - std::backtrace_rs::backtrace::libunwind::trace::h844294366bb10980
+prefix                                at /rustc/37390d65636dd67e263753a3c04fbc60dcc4348e/library/std/src/../../backtrace/src/backtrace/libunwind.rs:93:5
+prefix    1:     0x55a98f23062c - std::backtrace_rs::backtrace::trace_unsynchronized::h18bebde046599ecd
+prefix                                at /rustc/37390d65636dd67e263753a3c04fbc60dcc4348e/library/std/src/../../backtrace/src/backtrace/mod.rs:66:5
+prefix    2:     0x55a98f23062c - std::sys_common::backtrace::_print_fmt::hdd93b1c82fd68d23
+prefix                                at /rustc/37390d65636dd67e263753a3c04fbc60dcc4348e/library/std/src/sys_common/backtrace.rs:67:5
+prefix    3:     0x55a98f23062c - <std::sys_common::backtrace::_print::DisplayBacktrace as core::fmt::Display>::fmt::hf38ae6cdd2ab40ad
+prefix                                at /rustc/37390d65636dd67e263753a3c04fbc60dcc4348e/library/std/src/sys_common/backtrace.rs:44:22
+prefix    4:     0x55a98f24fd8c - core::fmt::rt::Argument::fmt::hab7d41c4b248a145
+prefix                                at /rustc/37390d65636dd67e263753a3c04fbc60dcc4348e/library/core/src/fmt/rt.rs:138:9
+prefix    5:     0x55a98f24fd8c - core::fmt::write::h43e0bd4e9229dacf
+prefix                                at /rustc/37390d65636dd67e263753a3c04fbc60dcc4348e/library/core/src/fmt/mod.rs:1114:21
+prefix    6:     0x55a98f214bee - main
+prefix    7:     0x7f90843e3083 - __libc_start_main
+prefix                                at /build/glibc-SzIz7B/glibc-2.31/csu/../csu/libc-start.c:308:16
+prefix    8:     0x55a98f2148ae - _start
+prefix    9:                0x0 - <unknown>
+
