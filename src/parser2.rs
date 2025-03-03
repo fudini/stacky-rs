@@ -251,7 +251,7 @@ fn indexed_parser_test() {
   let input = "  0:     0x55a98f23062c - std::foo::bar::123";
   parser.parse(input).unwrap();
 
-  let input = "0:     0x55a98f23062c - std::foo::bar::123";
+  let input = "0:     0x55a98f2306 - std::foo::bar::123";
   parser.parse(input).unwrap();
 
   let input = "prefix1234 0:     0x55a98f23062c - std::foo::bar::123";

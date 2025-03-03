@@ -39,7 +39,8 @@ fn parse_top(i: &str) -> IResult<&str, &str> {
 }
 
 fn parse_index(i: &str) -> IResult<&str, &str> {
-  let (i, _) = tuple((digit1, tag(":     0x")))(i)?;
+  let (i, _) =
+    tuple((digit1, tag(":"), take_while1(|c| c == ' '), tag("0x")))(i)?;
   let (i, r) = hex_digit1(i)?;
   Ok((i, r))
 }
@@ -122,9 +123,9 @@ fn nom_entry_parser_test() {
 fn nom_full_parser_test() {
   let input = include_str!("./tests/fixtures/panic.txt");
   let (_i, backtrace) = parse_backtrace(input).unwrap();
-  assert_eq!(backtrace.entries().len(), 9);
+  assert_eq!(backtrace.entries().len(), 10);
 
   let input = include_str!("./tests/fixtures/panic_prefixed.txt");
   let (_i, backtrace) = parse_backtrace(input).unwrap();
-  assert_eq!(backtrace.entries().len(), 9);
+  assert_eq!(backtrace.entries().len(), 10);
 }

@@ -61,6 +61,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // This looks like the end of backtrace that I'm interested in
     if line.contains("0x0 - ")
       || line.ends_with(" - _start")
+      || line.ends_with(" - _main") // osx ?
       || line.ends_with(": _start")
     {
       if config.verbose {
