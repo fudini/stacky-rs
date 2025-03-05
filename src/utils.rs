@@ -1,23 +1,42 @@
-use std::fmt;
+use std::{
+  env, fmt,
+  fs::{self, DirEntry},
+  path::PathBuf,
+};
 
-// TODO: This depends on existence of XDG_RUNTIME_DIR, but I don't know where
-// to look for neovim pipes otherwise yet
-pub fn get_nvim_pipes() -> Vec<String> {
-  let xdg = std::env::var("XDG_RUNTIME_DIR")
-    .expect("XDG_RUNTIME_DIR env var not found");
+fn entry_to_path(dir_entry: DirEntry) -> Option<PathBuf> {
+  let path = dir_entry.path();
+  let file_name = path.file_name()?;
+  let file_name_string = file_name.to_str()?;
+  file_name_string.starts_with("nvim.").then_some(path)
+}
 
-  let dir = std::fs::read_dir(xdg).expect("Reading dir failure");
+pub fn get_nvim_pipes() -> Vec<PathBuf> {
+  let xdg_pipes = env::var("XDG_RUNTIME_DIR")
+    .map(|dir| get_pipes(&dir))
+    .unwrap_or_default();
 
-  let nvim_pipes = dir.filter_map(|e| {
-    let path = e
-      .expect("Error listing neovim pipes")
-      .path()
-      .into_os_string()
-      .into_string()
-      .expect("Not a string");
+  if !xdg_pipes.is_empty() {
+    return xdg_pipes;
+  }
 
-    path.contains("nvim.").then_some(path)
-  });
+  let osx_pipes = env::var("TMPDIR")
+    .map(|dir| get_pipes(&dir))
+    .unwrap_or_default();
+
+  if !osx_pipes.is_empty() {
+    return osx_pipes;
+  }
+
+  Vec::new()
+}
+
+fn get_pipes(dir: &str) -> Vec<PathBuf> {
+  let Ok(dir) = fs::read_dir(dir) else {
+    return vec![];
+  };
+
+  let nvim_pipes = dir.filter_map(Result::ok).filter_map(entry_to_path);
 
   nvim_pipes.collect()
 }

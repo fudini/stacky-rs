@@ -56,6 +56,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
       // could be an option to dump backtrace, but probably we only want a short version or none
       // if it's sent to neovim
       stdout.write_all(format!("{}\n", line).as_bytes())?;
+      continue;
     }
 
     // This looks like the end of backtrace that I'm interested in
@@ -112,10 +113,13 @@ async fn nvim_task(
 
     for pipe in pipes {
       if config.verbose {
-        println!("nvim pipe: {}", pipe);
+        println!("nvim pipe: {:?}", pipe);
       }
+
       let nvim = new_path(pipe.clone(), Dummy::new());
-      let (writer, _join_handle) = nvim.await.unwrap();
+      let Ok((writer, _join_handle)) = nvim.await else {
+        continue;
+      };
 
       let cwd = writer
         .exec_lua("return vim.fn.getcwd()", vec![])
@@ -143,7 +147,7 @@ async fn nvim_task(
 
       if let Err(e) = writer.exec_lua(&lua, vec![]).await {
         eprintln!(
-          "Stacky error sending backtrace to Neovim instance '{}': {}",
+          "Stacky error sending backtrace to Neovim instance '{:?}': {}",
           pipe, e
         );
       }

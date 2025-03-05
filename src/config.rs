@@ -2,7 +2,6 @@
 pub struct Config {
   pub verbose: bool,
   pub stacky_function: String,
-  pub name: String,
 }
 
 impl Default for Config {
@@ -10,7 +9,6 @@ impl Default for Config {
     Self {
       verbose: false,
       stacky_function: "stacky_global".to_string(),
-      name: String::new(),
     }
   }
 }

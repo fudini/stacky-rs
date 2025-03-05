@@ -12,3 +12,4 @@ tokio-util = { version = "0.7.8", features = ["codec"] }
 nvim-rs = { version = "0.7.0", features = ["use_tokio"] }
 #chumsky = "0.9.3"
 nom = "5.0"
+anyhow = "1.0.97"
